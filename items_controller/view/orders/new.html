@@ -1,0 +1,52 @@
+<div class="orders_newitem" style="display:none">
+<div class="view_newitem">
+	<h3>{{lang.newitem}}</h3>
+	<div class="fieldparam">
+	<div class="col-ld-6">
+		<form name="myForm">
+			<div>
+				<label>{{lang.item}}</label>
+					<select name="item" aria-label="aaaaa" ng-model="data.repeatSelect">
+					  <option ng-repeat="item in items" value="{{option.id}}">{{item.name}}</option>
+					</select>
+				<label>{{lang.total}}</label>
+					<input type="text" name="total" aria-label="{{lang.total}}" ng-model="example.text" ng-pattern="example.word" required ng-trim="false" />
+				<label>{{lang.quantity}}</label>
+					<input type="number" name="itemquantity" aria-label="{{lang.quantity}}" value="100" required ng-trim="true" />
+				<label>{{lang.price}}</label>
+					<input type="number" name="itemprice" aria-label="{{lang.price}}" value="100" required ng-trim="true" />
+			</div>
+			<button ng-click="newRowParam('myForm')">+ row</button>
+			<button class="saveitem" ng-click="addItem($event)">{{lang.save}}</button>		
+		</form>
+		<form name="form">
+			<label></label>
+			 <input name="email" placeholder="try john.doe@mail.com or bad@domain.com" type="email" required ng-model="email" ng-model-options="{ debounce: 100 }"
+                ui-validate="{blacklist: 'notBlackListed($value)'}" ui-validate-async="{alreadyExists: 'doesNotExist($modelValue)'}">
+			<span ng-show='form.email.$error.blacklist'>This e-mail is black-listed!</span>
+			<span ng-show='form.email.$error.alreadyExists'>This e-mail is already taken!</span>
+			<span ng-show='form.email.$pending'>Verifying e-mail on server...</span>
+			<br>is form valid: {{form.$valid}}
+			<br>
+			<br>email errors: {{form.email.$error | json}}
+			<br>email pending: {{form.email.$pending | json}}			
+		</form>
+	</div>
+	</div>
+<div role="alert">
+	<span class="error" ng-show="myForm.input.$error.required">{{lang.required}}</span>
+	<span class="error" ng-show="myForm.input.$error.pattern">{{lang.singleword}}</span>
+</div>
+
+	<dt>
+	<tt>text = {{example.text}}</tt><br/>
+	<tt>myForm.input.$valid = {{myForm.input.$valid}}</tt><br/>
+	<tt>myForm.input.$error = {{myForm.input.$error}}</tt><br/>
+	<tt>myForm.$valid = {{myForm.$valid}}</tt><br/>
+	<tt>myForm.$error.required = {{!!myForm.$error.required}}</tt>
+	</dt>
+
+<span class="closeme" ng-click="xNewItem($event)"> x close me </span>
+</div>
+
+</div>

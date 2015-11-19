@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="fr">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>TEST</title>
+	<script type="text/javascript" src="library/angular.min.js"></script>
+	<script type="text/javascript" src="library/ocLazyLoad.min.js"></script>
+	<script type="text/javascript" src="library/angular-route.min.js"></script>
+	<script type="text/javascript" src="library/angular-ui-router.min.js"></script>
+	<script type="text/javascript" src="library/angular-aria.js"></script>
+	<script type="text/javascript" src="library/angular-mocks.js"></script>
+	<script type="text/javascript" src="library/validate.min.js"></script>
+	<script type="text/javascript" src="library/angular-animate.min.js"></script>
+	<script type="text/javascript" src="library/jquery203_min.js"></script>
+	<script type="text/javascript" src="library/bootstrap335/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="library/underscore.js"></script>
+	<script data-main="main" src="library/require.js"></script>
+	
+	<link href="library/bootstrap335/css/bootstrap.min.css" rel="stylesheet">
+    <link href="library/bootstrap335/css/bootstrap-theme.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="common.css" />
+</head>
+<body>
+<div ng-controller="HomeController">
+	<div ui-view="header"></div>
+	<div class="view-animate-container" ng-swipe-left="gotoNext()"  ng-swipe-right="gotoPrevious()" >
+		<div ui-view="content" class="view-animate" onload="doSth()" ></div>
+	</div>
+   <div ui-view="footer"></div>
+</div>
+</body>
+</html>

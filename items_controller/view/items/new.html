@@ -1,0 +1,30 @@
+<div class="view_newitem">
+	<h3>{{lang.newitem}}</h3>
+	<div class="fieldparam" style="display:none">
+	<div class="col-md-6">
+		<form name="myForm">
+			<table class="table table-striped">
+			<tbody>
+			  <tr>
+				<td><input type="text" name="itemname" ng-model="example.text" ng-pattern="example.word" required ng-trim="false" /></td>
+				<td><input type="number" name="itemprice" value="100" required ng-trim="true" /></td>
+				<td><input type="text" name="itemcurrency" value="$"/></td>
+				<td><button class="saveitem" ng-click="addItem($event)">save</button></td>
+			  </tr>
+			</tbody>
+			</table>
+		</form>
+	</div>
+	</div>
+<div role="alert">
+	<span class="error" ng-show="myForm.input.$error.required">{{lang.required}}</span>
+	<span class="error" ng-show="myForm.input.$error.pattern">{{lang.singleword}}</span>
+</div>
+
+<tt>text = {{example.text}}</tt><br/>
+<tt>myForm.input.$valid = {{myForm.input.$valid}}</tt><br/>
+<tt>myForm.input.$error = {{myForm.input.$error}}</tt><br/>
+<tt>myForm.$valid = {{myForm.$valid}}</tt><br/>
+<tt>myForm.$error.required = {{!!myForm.$error.required}}</tt><br/>
+
+</div>
