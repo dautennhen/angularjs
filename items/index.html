@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="library/bootstrap335/css/bootstrap.min.css" rel="stylesheet">
+    <link href="library/bootstrap335/css/bootstrap-theme.min.css" rel="stylesheet">
+	<link href="main.css" rel="stylesheet">
+	<title>ITEMS</title>
+	<script type="text/javascript" src="library/angular.min.js"></script>
+	<script type="text/javascript" src="library/ocLazyLoad.min.js"></script>
+	<script type="text/javascript" src="library/angular-route.min.js"></script>
+	<script type="text/javascript" src="library/angular-ui-router.min.js"></script>
+	<script type="text/javascript" src="library/jquery203_min.js"></script>
+	<script type="text/javascript" src="library/bootstrap335/css/bootstrap.min.js"></script>
+	<script type="text/javascript" src="library/underscore.js"></script>
+	<script data-main="main" src="library/require.js"></script>
+</head>
+<body>
+	<div class="module moduledemo home">
+	   <div ui-view="header"></div>
+	   <div ui-view="content"></div>
+	   <div ui-view="footer"></div>
+	</div>
+	<div class="module moduleitem items">
+	   <div ui-view="content"></div>
+	</div>
+	<div class="module moduleuser users">
+	   <div ui-view="content"></div>
+	</div>
+	<div class="module moduleorder orders">
+	   <div ui-view="content"></div>
+	</div>
+</body>
+</html>
