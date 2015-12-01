@@ -20,8 +20,11 @@ define([], function () {
     }
     
 	});  
-  app.run(function(moduleBase){
+  app.run(function(moduleBase, dbAction){
     moduleBase.changeLanguage('en');
+	dbAction.initDb();
+	dbAction.install();
+	//dbAction.excuteQuery('create table huhu(id INTERGER, desc text)');
   });
 	return app;
 });

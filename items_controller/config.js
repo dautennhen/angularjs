@@ -40,13 +40,13 @@ define([], function () {
       parent:'app',
       views : {
         'content@' : {
-          templateUrl : 'view/users/users.html',
+          templateUrl : function(){return 'modules/users/view/users.html'},
           controller : 'UsersController',
           resolve : {
             load : function ($ocLazyLoad) {
               return $ocLazyLoad.load({
                 name : 'moduleOrders',
-                files : ['modules/moduleUsers.js']
+                files : ['modules/users/moduleUsers.js']
               });
             }
           }
@@ -58,13 +58,13 @@ define([], function () {
       parent:'app',
       views : {
         'content@' : {
-          templateUrl : 'view/orders/orders.html',
+          templateUrl : 'modules/orders/view/orders.html',//'view/orders/orders.html',
           controller : 'OrdersController',
           resolve : {
             load : function ($ocLazyLoad) {
               return $ocLazyLoad.load({
                 name : 'moduleOrders',
-                files : ['modules/moduleOrders.js']
+                files : ['modules/orders/moduleOrders.js']
               });
             }
           }
@@ -75,11 +75,11 @@ define([], function () {
       url : '/:id',
       views : {
         'item@app.orders' : {
-          templateUrl : 'view/orders/item.html',
+          templateUrl : 'modules/orders/view/item.html',
           controller : 'OrderController'
         },
         'new@app.orders' : {
-          templateUrl : 'view/orders/new.html',
+          templateUrl : 'modules/orders/view/new.html',
           controller : 'OrderController'
         },
       }
@@ -90,13 +90,13 @@ define([], function () {
         cache : true,
 				views : {
 					'content@' : {
-						templateUrl : 'view/items/items.html',
+						templateUrl : 'modules/items/view/items.html',
 						controller : 'ItemsController',
             resolve : {
               load : function ($ocLazyLoad) {
                 return $ocLazyLoad.load({
                   name : 'moduleItems',
-                  files : ['modules/moduleItems.js']
+                  files : ['modules/items/moduleItems.js']
                 });
               }
             }
@@ -107,11 +107,11 @@ define([], function () {
       url : '/:id',
       views : {
         'item@app.items' : {
-          templateUrl : 'view/items/item.html',
+          templateUrl : 'modules/items/view/item.html',
           controller : 'ItemController'
         },
         'newitem@app.items' : {
-          templateUrl : 'view/items/new.html',
+          templateUrl : 'modules/items/view/new.html',
           controller : 'ItemController'
         }
       }
