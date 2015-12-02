@@ -1,0 +1,43 @@
+<div class="view_content listview row">
+<div class="col-md-6">
+	<table class="table table-striped">
+	<thead>
+	  <tr>
+		<th>#</th>
+		<td>{{lang.param}}</td>
+		<th>{{lang.total}}</th>
+		<th>{{lang.datetime}}</th>
+		<th>{{lang.action}}</th>
+	  </tr>
+	</thead>
+	<tbody>
+	  <tr ng-repeat="item in items" >
+		<td>#</td>
+		<td>{{item.param}}</td>
+		<td><a ui-sref=".item({ id: item._id })">{{item.total}}</a></td>
+		<td>{{item.datetime}}</td>
+		<td><span ng-click="deleteItem(this)" data-id="{{item._id}}"> X </span></td>
+	  </tr>
+	</tbody>
+	</table>
+	
+	<form name="myForm">
+	<table class="table table-striped">
+	<tbody>
+	  <tr>
+		<td>#</td>
+		<td><input type="text" name="itemname" ng-model="example.text" ng-pattern="example.word" required ng-trim="false" /></td>
+		<td><input type="number" name="itemquantity" value="100" required ng-trim="true" /></td>
+		<td><input type="number" name="itemprice" value="100" required ng-trim="true" /></td>
+		<td>total</td>
+	  </tr>
+	  <tr>
+		<td></td><td></td><td></td><td></td>
+		<td><button class="saveitem" ng-click="addItem($event)">save<button></td>
+	  </tr>
+	</tbody>
+	</table>
+	</form>
+		
+</div>
+</div>

@@ -1,0 +1,8 @@
+LIST {{lang.users}}
+<div class="view_content listview">
+	<ul>
+		<li ng-repeat="item in items">
+			<span><a ui-sref=".item({ id: item._id })">{{item._id}}</a></span> <span ng-click="deleteItem(this)" data-id="{{item._id}}"> X </span>
+		</li>
+	</ul>
+</div>
