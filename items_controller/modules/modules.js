@@ -1,7 +1,7 @@
 define([], function () {
-	var app = angular.module('demo', ['ngRoute', , 'ngAria', 'ui.router', 'db',  'moduleBase', 'ngAnimate', 'oc.lazyLoad']);
+	var app = angular.module('demo', ['ngRoute', 'ngAria', 'ui.router', 'db',  'moduleBase', 'ngAnimate', 'oc.lazyLoad']);
 	app.controller('HomeController', function ($scope, moduleBase) {
-		console.log('HomeController');
+	console.log('HomeController');
     angular.extend($scope, moduleBase);
 		// Set lang here is for all contoller
 		// inject moduleBase for this only
@@ -20,11 +20,9 @@ define([], function () {
     }
     
 	});  
-  app.run(function(moduleBase, dbAction){
+  app.run(function(moduleBase, dbAction, installDb){
     moduleBase.changeLanguage('en');
-	dbAction.initDb();
-	dbAction.install();
-	//dbAction.excuteQuery('create table huhu(id INTERGER, desc text)');
+	installDb.install();
   });
-	return app;
+  return app;
 });

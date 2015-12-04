@@ -1,5 +1,5 @@
 <div class="view_content listview row">
-<div class="col-md-6">
+<div class="col-md-12">
 	<table class="table table-striped">
 	<thead>
 	  <tr>
@@ -12,13 +12,22 @@
 	<tbody>
 	  <tr ng-repeat="item in items" >
 		<td>#</td>
-		<td><a ui-sref=".item({ id: item._id })">{{item.name}}</a></td>
+		<td><a ui-sref=".item({ id: item.id })">{{item.name}}</a></td>
 		<td>{{item.price}}</td>
-		<td><span ng-click="deleteItem(this)" data-id="{{item._id}}"> X </span></td>
+		<td>
+			<span ng-click="deleteItem(this)" data-id="{{item.id}}" class="glyphicon glyphicon-remove"></span>
+			<span ng-click="editItem(this)" data-id="{{item.id}}" class="glyphicon glyphicon-edit"></span>
+		</td>
 	  </tr>
 	</tbody>
 	</table>
-	
+	<div>
+		<!--<button ng-click="getOne(this)">getOne</button>
+		<button ng-click="getAll(this)">getAll</button>
+		<button ng-click="update(this)"></button>
+		<button ng-click="delete(this)"></button>
+		<button ng-click="insert(this)"></button>-->
+	</div>
 	<paging
 		class="small"
 		page="page" 
@@ -42,7 +51,7 @@
 		<td><input type="text" name="itemname" ng-model="example.text" ng-pattern="example.word" required ng-trim="false" /></td>
 		<td><input type="number" name="itemprice" value="100" required ng-trim="true" /></td>
 		<td><input type="text" name="itemcurrency" value="$"/></td>
-		<td><button class="saveitem" ng-click="addItem($event)">save</button></td>
+		<td><button class="saveitem" ng-click="addItem($event)">save new</button> <button class="saveitem" ng-click="saveChange($event)">save changes</button></td>
 	  </tr>
 	</tbody>
 	</table>

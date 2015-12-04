@@ -1,7 +1,7 @@
 .view-animate-container {
   position:relative;
-  height:500px!important;
-  height:40px;
+  min-height:500px!important;
+  height:auto;
   overflow:hidden;
 }
 
@@ -56,4 +56,10 @@ ul.paging li {
 ul.paging li:hover, ul.paging li.active {
 	background-color: #666666;
 	color: white
+}
+
+.footer {
+	position: fixed;
+    bottom: 0px;
+    width: 100%;
 }
