@@ -12,10 +12,10 @@ define([], function () {
 							indexedDb.openConection(function(){indexedDb.insert({table:'items', values:{name:'myname21', price : 18111, currency:'vnd', haha : 'huhu'}}) }, function(evt){
 							//indexedDb.openConection('', function (evt) {
 								var objectStore = null;
-								$.each(data, function (index, item) {
+								$.each(data, function (table, fields) {
 									//console.log('item', item)
 									//try {
-									objectStore = evt.currentTarget.result.createObjectStore(item.table, {
+									objectStore = evt.currentTarget.result.createObjectStore(table, {
 											"keyPath" : "id",
 											"autoIncrement" : true
 										});

@@ -11,7 +11,7 @@
 	</thead>
 	<tbody>
 	  <tr ng-repeat="item in items" >
-		<td>#</td>
+		<td data-did={{item.did}}>{{item.id}}</td>
 		<td><a ui-sref=".item({ id: item.id })">{{item.name}}</a></td>
 		<td>{{item.price}}</td>
 		<td>

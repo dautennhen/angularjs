@@ -1,6 +1,6 @@
 [{
 	"table": "items",
-	"fields": ["name", "price", "currency"]
+	"items": ["name", "price", "currency"]
 }, {
 	"table": "orders",
 	"fields": ["id", "params", "status"]

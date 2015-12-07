@@ -3,22 +3,20 @@ var initializeItems = function ($window, $scope, moduleItems) {
 	$scope.items = moduleItems.init($scope);
 }
 angular.module('moduleItems', ['ngRoute', 'ui.router', 'db', 'moduleBase', 'moduleTable', 'bw.paging', 'app.config']);
-angular.module('moduleItems').controller('ItemsController', function ($log, $scope, dbAction, indexedDb, moduleItems, $stateParams, $timeout, $routeParams, $window, moduleTable, $appConfig) {
+angular.module('moduleItems').controller('ItemsController', function ($log, $scope, dbAction, indexedDb, moduleItems, $stateParams, $timeout, $routeParams, $window, moduleTable, $appConfig, moduleBase) {
 	console.log($stateParams, $routeParams);
 	// get default paging
 	$scope.page = $appConfig.paging_page;
 	$scope.pageSize = $appConfig.paging_pageSize;
-	$scope.total = 1; //results.length;
+	$scope.total = 1; //results.length;	
+	$scope.allItems = [];
+	$scope.items = [];
 	$scope.DoCtrlPagingAct = function (text, page, pageSize, total) {
-		$log.info({
-			text : text,
-			page : page,
-			pageSize : pageSize,
-			total : total
-		});
+		var start = pageSize * (page - 1);
+		var end = start + pageSize;
+		$scope.items = moduleBase.getDisplayItems([start, end], $scope);
 	};
-	initializeItems($window, $scope, moduleItems)
-
+	initializeItems($window, $scope, moduleItems);
 	$scope.getOne = function () {
 		indexedDb.getOne({
 			table : 'items',
@@ -28,7 +26,7 @@ angular.module('moduleItems').controller('ItemsController', function ($log, $sco
 			console.log(result)
 		});
 	}
-	var getAll = function () {
+	/*var getAll = function () {
 		var results = [];
 		indexedDb.getAll({
 			table : 'items'
@@ -37,11 +35,12 @@ angular.module('moduleItems').controller('ItemsController', function ($log, $sco
 		});
 		$timeout(function () {
 			$scope.$apply(function () {
-				$scope.items = results;
+				$scope.allItems = results;
+				$scope.items = getDisplayItems([0, $appConfig.paging_pageSize]);//moduleBase.getDisplayItems([0, $appConfig.paging_pageSize], $scope);
 			})
 		}, 20);
 	}
-	$scope.getAll = getAll;
+	$scope.getAll = getAll;*/
 	$scope.example = {
 		text : 'guest',
 		word : /^\s*\w*\s*$/
@@ -79,21 +78,27 @@ angular.module('moduleItems').controller('ItemsController', function ($log, $sco
 			values : data
 		};
 		indexedDb.insert(param, function (result) {
+			console.log(result)
 			$timeout(function () {
 				$scope.$apply(function () {
-					$scope.items.push(data);
-					$scope.total = $scope.items.length;
+					//console.log(data)
+					//data = moduleBase.union([result.target.result], data);
+					data.id = result.target.result;
+					$scope.allItems.push(data);
+					$scope.total = $scope.allItems.length;
+					$scope.items = moduleBase.getDisplayItems([0, $appConfig.paging_pageSize], $scope);
 				})
 			}, 20);
 		});
 	}
 	$scope.editItem = function (obj) {
 		var $obj = $('form[name="myForm"]');
-		var items = $scope.items;
+		var items = $scope.allItems;
 		var item = _.findWhere(items, {
 			id : obj.item.id
 		});
 		$obj.data('id',obj.item.id);
+		$obj.data('did',obj.item.did);
 		$obj.find('[name="itemprice"]').val(item.price);
 		$obj.find('[name="itemname"]').val(item.name);
 		$obj.find('[name="itemcurrency"]').val(item.currency);
@@ -101,28 +106,28 @@ angular.module('moduleItems').controller('ItemsController', function ($log, $sco
 	}
 	$scope.saveChange = function ($event) {
 		var $obj = $($event.target).parents('tr');
-		data = {
-			price : $obj.find('[name="itemprice"]').val(),
-			name : $obj.find('[name="itemname"]').val(),
-			currency : $obj.find('[name="itemcurrency"]').val(),
-		}
 		param = {
 			table : "items",
-			values : data
+			values : {
+				price : $obj.find('[name="itemprice"]').val(),
+				name : $obj.find('[name="itemname"]').val(),
+				currency : $obj.find('[name="itemcurrency"]').val(),
+			}
 		};
 		$obj = $('form[name="myForm"]');
 		if( typeof $obj.data('id') == 'undefined' )
 			return;		
 		param.values.id = parseInt($obj.data('id'));
-		//console.log(param)
+		var did  = parseInt($obj.data('did'));
 		indexedDb.update(param, function (result) {
-			//$timeout(function () {
-				$scope.diggest();
-			//}, 20);
+			$timeout(function () {
+				$.extend( $scope.allItems[did], param.values);
+				$scope.items = moduleBase.getDisplayItems([0, $appConfig.paging_pageSize], $scope);
+			}, 20);
 		});
 	}
 	$scope.deleteItem = function (obj) {
-		var items = $scope.items;
+		var items = $scope.allItems;
 		console.log('one item', items);
 		var item = _.findWhere(items, {
 				name : obj.item.name
@@ -137,8 +142,10 @@ angular.module('moduleItems').controller('ItemsController', function ($log, $sco
 			items = _.without(items, item);
 			$timeout(function () {
 				$scope.$apply(function () {
-					$scope.items = items;
-					$scope.total = items.length;
+					$scope.allItems = items;
+					$scope.total = $scope.allItems.length;
+					$scope.items = moduleBase.getDisplayItems([0, $appConfig.paging_pageSize], $scope);
+					console.log($scope.items, $scope.allItems)
 				})
 			}, 20);
 		});
@@ -188,7 +195,7 @@ angular.module('moduleItems').controller('ItemController', function ($scope, $st
 });
 angular.module('moduleItems').provider("moduleItems", function () {
 	var provider = {};
-	provider.$get = ['$window', 'dbAction', 'indexedDb', '$state', '$templateCache', '$timeout', '$rootScope', '$stateParams', function ($window, dbAction, indexedDb, $state, $templateCache, $timeout, $rootScope, $stateParams) {
+	provider.$get = ['$window', 'dbAction', 'indexedDb', '$state', '$templateCache', '$timeout', '$rootScope', '$stateParams', 'moduleBase', '$appConfig', function ($window, dbAction, indexedDb, $state, $templateCache, $timeout, $rootScope, $stateParams, moduleBase, $appConfig) {
 			var services = {
 				init : function ($scope) {
 					var getAll = function ($scope) {
@@ -200,9 +207,9 @@ angular.module('moduleItems').provider("moduleItems", function () {
 						});
 						$timeout(function () {
 							$scope.$apply(function () {
-								$scope.items = results;
+								$scope.allItems = results;
+								$scope.items = moduleBase.getDisplayItems([0, $appConfig.paging_pageSize], $scope);
 								$scope.total = results.length;
-								console.log(results.length);
 							})
 						}, 500);
 					}
@@ -214,4 +221,6 @@ angular.module('moduleItems').provider("moduleItems", function () {
 	];
 	return provider;
 });
+
+//angular.module('moduleItems', []).constant('allItems', []);
 angular.module('moduleItems').run(function () {})

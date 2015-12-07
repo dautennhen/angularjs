@@ -1,5 +1,5 @@
 define([], function () {
-	var app = angular.module('moduleBase', []);
+	var app = angular.module('moduleBase', ['app.config']);
 	app.provider("moduleBase", function () {
 		var provider = {};
 		provider.$get = ['$window', 'dbAction', '$rootScope', '$timeout', function ($window, dbAction, $rootScope, $timeout) {
@@ -38,6 +38,22 @@ define([], function () {
 					requirejs([filename], function (content) {
 						callback(content)
 					});
+				},
+				getDisplayItems : function(number, $scope){
+					var items = [];
+					var oneitem = {};
+					for(var i=number[0]; i<number[1]; i++) {
+						if(typeof $scope.allItems[i] == 'undefined')
+							break;
+						$scope.allItems[i].did = i;
+						//oneitem = $scope.allItems[i];
+						//oneitem.did = i;
+						items.push($scope.allItems[i]);
+					}
+					return items;
+				},
+				union : function(a, b) {
+				  return $.merge( $.merge([],a), b);
 				}
 			}
 

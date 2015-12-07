@@ -122,8 +122,6 @@ define([], function () {
 						request.onsuccess = function (evt) {
 							if (request.result) {
 								(callback || angular.noop)(request.result)
-							} else {
-								alert("Couldn't be found in your database!");
 							}
 						};
 					},
@@ -135,9 +133,9 @@ define([], function () {
 						};
 					},
 					update : function (param, callback) {
-						var request = this.getStore(param.table);
-						request.put(param.values);
+						var request = this.getStore(param.table).put(param.values);
 						request.onsuccess = function (evt) {
+							console.log('ooooooooooooooooo');
 							(callback || angular.noop)(evt)
 						};
 					},
