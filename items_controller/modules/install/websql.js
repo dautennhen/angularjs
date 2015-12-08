@@ -1,5 +1,5 @@
 [
-  "create table if not exists khakha(id interger, desc text)",
-  "create table if not exists sthwrong(id interger, desc1 text)",
-  "insert into sthwrong values(1,'9999')"
+  "create table if not exists items(id interger, name text, price text, currency text)",
+  "create table if not exists orders(id interger, params text, status text)",
+  "create table if not exists orderitem(orderid interger, itemid interger)"
 ]

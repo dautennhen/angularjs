@@ -12,7 +12,7 @@
 	<tbody>
 	  <tr ng-repeat="item in items" >
 		<td data-did={{item.did}}>{{item.id}}</td>
-		<td><a ui-sref=".item({ id: item.id })">{{item.name}}</a></td>
+		<td><a ui-sref=".item({ id: item.id })" >{{item.name}}</a></td>
 		<td>{{item.price}}</td>
 		<td>
 			<span ng-click="deleteItem(this)" data-id="{{item.id}}" class="glyphicon glyphicon-remove"></span>
@@ -48,10 +48,10 @@
 	<table class="table table-striped">
 	<tbody>
 	  <tr>
-		<td><input type="text" name="itemname" ng-model="example.text" ng-pattern="example.word" required ng-trim="false" /></td>
-		<td><input type="number" name="itemprice" value="100" required ng-trim="true" /></td>
-		<td><input type="text" name="itemcurrency" value="$"/></td>
-		<td><button class="saveitem" ng-click="addItem($event)">save new</button> <button class="saveitem" ng-click="saveChange($event)">save changes</button></td>
+		<td colspan="3"><input type="text" name="itemname" ng-model="example.text" ng-pattern="example.word" required ng-trim="false" />
+		<input type="number" name="itemprice" value="100" required ng-trim="true" />
+		<input type="text" name="itemcurrency" value="$"/>
+		<button class="saveitem" ng-click="addItem($event)">save new</button> <button class="saveitem" ng-click="saveChange($event)">save changes</button></td>
 	  </tr>
 	</tbody>
 	</table>

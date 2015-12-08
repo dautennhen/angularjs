@@ -3,14 +3,9 @@ define([], function () {
 	app.value('hihi', 'hihi value');
 	app.provider("dbAction", function () {
 		var provider = {};
-		//var dbname = 'dbtest';
-		//var dbtype = 'websql'; // || sqlite
 		provider.$get = ['$http', '$log', '$window', '$appConfig', function ($http, $log, $window, $appConfig) {
 				var service = {
 					doThat : function (param, callback) {
-						//if(dbtype=='websql' || dbtype=='sqlite') {
-
-						//} else {
 						param = {
 							method : 'POST',
 							url : param.url,
@@ -42,7 +37,7 @@ define([], function () {
 							tx.executeSql(str, param)
 						},
 							function (err) {
-							console.error(err.message)
+							$log.error(err.message)
 						},
 							function () {
 							(callback || angular.noop)()
@@ -67,7 +62,6 @@ define([], function () {
 	});
 
 	app.provider("indexedDb", function () {
-		//var IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction;
 		var dbname = 'dbname';
 		var provider = {};
 		var db = null;
@@ -83,15 +77,15 @@ define([], function () {
 								onsuccess()
 						};
 						request.onerror = function (evt) {
-							console.log("IndexedDB error: " + evt.target.errorCode);
+							$log.log("IndexedDB error: " + evt.target.errorCode);
 						};
 						request.onupgradeneeded = function (evt) {
 							if (typeof onupgradeneeded == 'function')
 								onupgradeneeded(evt)
-								//	var objectStore = evt.currentTarget.result.createObjectStore(
-								//            "ln", { keyPath: "id", autoIncrement: true });
+								//var objectStore = evt.currentTarget.result.createObjectStore(
+								//"ln", { keyPath: "id", autoIncrement: true });
 
-								//                    objectStore.createIndex("name", "name", { unique: false });
+								//objectStore.createIndex("name", "name", { unique: false });
 								//objectStore.createIndex("email", "email", { unique: true });
 
 						};
@@ -126,7 +120,6 @@ define([], function () {
 						};
 					},
 					insert : function (param, callback) {
-						console.log(param);
 						var request = this.getStore(param.table).add(param.values);
 						request.onsuccess = function (evt) {
 							(callback || angular.noop)(evt)
@@ -135,7 +128,6 @@ define([], function () {
 					update : function (param, callback) {
 						var request = this.getStore(param.table).put(param.values);
 						request.onsuccess = function (evt) {
-							console.log('ooooooooooooooooo');
 							(callback || angular.noop)(evt)
 						};
 					},
@@ -169,7 +161,7 @@ define([], function () {
 							//indexedDb.openConection('', function (evt) {
 									var objectStore = null;
 									$.each(data, function (index, item) {
-										//console.log('item', item)
+										//$log.log('item', item)
 										//try {
 										objectStore = evt.currentTarget.result.createObjectStore(item.table, {
 												"keyPath" : "id",

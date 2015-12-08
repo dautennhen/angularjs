@@ -20,9 +20,21 @@ define([], function () {
     }
     
 	});  
-  app.run(function(moduleBase, dbAction, installDb){
+  app.run(function($rootScope, moduleBase, dbAction, installDb, $appConfig, $log, $state){
     moduleBase.changeLanguage('en');
-	installDb.install();
+    if($appConfig.dbtype=='indexeddb') {
+      installDb.install();
+    } else {
+      //dbAction.install(); 
+    }
+    $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+      $log.log(toState, toParams, fromState, fromParams)
+      //$scope.callbackState = fromState.name
+       if (toState.name !== 'app.home' && !moduleBase.authenticaded()) {
+          event.preventDefault();
+          $state.go('app.home');
+        }
+    })
   });
   return app;
 });

@@ -1,5 +1,5 @@
 define([], function () {
-	return ['$stateProvider', '$urlRouterProvider', '$logProvider', '$ocLazyLoadProvider', function ($stateProvider, $urlRouterProvider, $logProvider, $ocLazyLoadProvider) {
+	return ['$stateProvider', '$urlRouterProvider', '$logProvider', '$ocLazyLoadProvider', '$appConfig', function ($stateProvider, $urlRouterProvider, $logProvider, $ocLazyLoadProvider, $appConfig) {
 			//$urlRouterProvider.otherwise('/home');
 			$ocLazyLoadProvider.config({
 				loadedModules : ['demo'],
@@ -8,7 +8,7 @@ define([], function () {
 						files : ['modules/users/moduleUsers.js']
 					}, {
 						name : 'moduleItems',
-						files : ['modules/items/moduleItems.js']
+						files : ['modules/items/'+$appConfig.dbtype+'.js']
 					}, {
 						name : 'moduleOrders',
 						files : ['modules/orders/moduleOrders.js']

@@ -1,12 +1,24 @@
-<div class="orderItem" data-id="item{{item.id}}" style="display:none">
-	ITEM
-	<div class="itemview">
-		{{item._id}} {{item.name}} |  {{item.price}} | {{item.currency}} <span ng-click="deleteItem(this)" data-id="{{item.id}}" class="glyphicon glyphicon-remove"></span>
+<div class="modal fade" id="myModal" role="dialog">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <button type="button" class="close" data-dismiss="modal">&times;</button>
+		  <h4 class="modal-title">ITEM</h4>
+		</div>
+		<div class="modal-body">
+		  <div class="orderItem" data-id="item{{item.id}}" >
+			<div class="itemview">
+				{{item._id}} {{item.name}} |  {{item.price}} | {{item.currency}} <span ng-click="delMe(this, $event)" data-id="{{item.id}}" class="glyphicon glyphicon-remove"></span>
+			</div>
+			<!--<span class="closeme" ng-click="closeMe($event)"> x close me </span>
+			<select name="item" aria-label="aaaaa">
+			  <option ng-repeat="option in items" value="{{option.id}}">{{option.name}}</option>
+			</select>-->
+		  </div>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		</div>
+	  </div>
 	</div>
-	<span class="closeme" ng-click="closeMe($event)"> x close me </span>
-	
-	<select name="item" aria-label="aaaaa">
-	  <option ng-repeat="option in items" value="{{option.id}}">{{option.name}}</option>
-	</select>
-	
 </div>
