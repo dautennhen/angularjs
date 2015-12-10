@@ -41,9 +41,7 @@ define([], function () {
 					},
 					getLocalStorage : function (item) {
 						var item = $window.localStorage.getItem(item);
-						return (item == null) ? {}
-
-						 : JSON.parse(item);
+						return (item == null) ? {} : JSON.parse(item);
 					},
 					mergeAndSetLocalStorage : function (item, data) {
 						var itemData = this.getLocalStorage(item);
@@ -74,8 +72,6 @@ define([], function () {
 							if (typeof $scope.allItems[i] == 'undefined')
 								break;
 							$scope.allItems[i].did = i;
-							//oneitem = $scope.allItems[i];
-							//oneitem.did = i;
 							items.push($scope.allItems[i]);
 						}
 						return items;
@@ -84,7 +80,7 @@ define([], function () {
 						return $.merge($.merge([], a), b);
 					},
           authenticaded : function() {
-            //return false;
+            //Math.round((new Date()).getTime() / 1000)
             return true;
           }
 				}

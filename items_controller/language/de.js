@@ -1,3 +1,4 @@
+//escape unescape
 define([], function () {
 	return {
 		"items" : "items de",
@@ -13,6 +14,7 @@ define([], function () {
 		"param" : "param de",
 		"total" : "total de",
 		"datetime" : "date de",
-		"action" : "action de"
+		"action" : "action de",
+    "id" : "id de"
 	}
 });

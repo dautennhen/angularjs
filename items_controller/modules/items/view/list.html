@@ -4,6 +4,7 @@
 	<thead>
 	  <tr>
 		<th>#</th>
+		<th>{{lang.id}}</th>
 		<th>{{lang.item}}</th>
 		<th>{{lang.price}}</th>
 		<th>{{lang.action}}</th>
@@ -11,6 +12,7 @@
 	</thead>
 	<tbody>
 	  <tr ng-repeat="item in items" >
+		<td>{{(page - 1) * pageSize + $index}}</td>
 		<td data-did={{item.did}}>{{item.id}}</td>
 		<td><a ui-sref=".item({ id: item.id })" >{{item.name}}</a></td>
 		<td>{{item.price}}</td>

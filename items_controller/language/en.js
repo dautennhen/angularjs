@@ -13,6 +13,7 @@ define([], function () {
 		"param" : "param",
 		"total" : "total",
 		"datetime" : "date",
-		"action" : "action"
+		"action" : "action",
+    "id" : "id"
 	}
 });
