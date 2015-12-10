@@ -1,5 +1,5 @@
 define([], function () {
-	var app = angular.module('demo', ['ngRoute', 'ngAria', 'ui.router', 'db',  'moduleBase', 'ngAnimate', 'oc.lazyLoad','ngTouch']);
+	var app = angular.module('demo', ['ngRoute', 'ngAria', 'ui.router', 'db', 'moduleBase', 'ngAnimate', 'oc.lazyLoad', 'ngTouch']);
 	app.controller('HomeController', function ($scope, moduleBase, $state) {
 	console.log('HomeController');
     angular.extend($scope, moduleBase);
@@ -9,14 +9,9 @@ define([], function () {
     var getDestModuleState = function(isNext) {
         var modules = ['app.home', 'app.items'];
         var index = _.indexOf(modules, $state.current.name);
-        if(isNext){
-          if((index==-1) || (index==(modules.length-1)))
-            return false;
-          return modules[index+1];
-        }
-        if(index==-1 || index==0)
-          return false;
-        return modules[index-1];
+        if(isNext)
+          return ((index==-1) || (index==(modules.length-1))) ? false : modules[index+1] 
+        return (index==-1 || index==0) ? false : modules[index-1] ;
     }
     $scope.gotoNext = function(){
       var state = getDestModuleState(true);

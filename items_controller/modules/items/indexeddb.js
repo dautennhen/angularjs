@@ -191,6 +191,7 @@ angular.module('moduleItems').provider("moduleItems", function () {
 							$scope.$apply(function () {
 								$scope.allItems = results;
 								moduleBase.displayCurrentPage($scope);
+                $('[data-toggle="tooltip"]').tooltip();
 							})
 						}, 500);
 					}

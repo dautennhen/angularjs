@@ -4,11 +4,7 @@ define([], function () {
 		var provider = {};
 		provider.$get = ['$window', 'dbAction', '$rootScope', '$timeout', '$appConfig', '$log', function ($window, dbAction, $rootScope, $timeout, $appConfig, $log) {
 				var service = {
-					//lang : 'en',
-					params : {
-						items_per_page : 9
-					},
-					setLanguage : function (lang, callback) {
+          setLanguage : function (lang, callback) {
 						param = {
 							url : "language/" + lang + '.json'
 						};
@@ -53,7 +49,6 @@ define([], function () {
 						$window.localStorage.setItem(item, data);
 					},
 					displayCurrentPage : function ($scope) {
-						//$scope.total = $scope.allItems.length;
 						var page = this.getLocalStorage('items');
 						page = page.curpage || 0;
 						var start = $appConfig.paging_pageSize * page;
