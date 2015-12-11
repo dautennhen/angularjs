@@ -1,6 +1,6 @@
 define([], function () {
-	var app = angular.module('demo', ['ngRoute', 'ngAria', 'ui.router', 'db', 'moduleBase', 'ngAnimate', 'oc.lazyLoad', 'ngTouch']);
-	app.controller('HomeController', function ($scope, moduleBase, $state, $log) {
+	var app = angular.module('demo', ['ngRoute', 'ngAria', 'ui.router', 'db', 'moduleBase', 'ngAnimate', 'oc.lazyLoad', 'ngTouch', 'app.config']);
+	app.controller('HomeController', function ($scope, moduleBase, $state, $log, $appConfig) {
 	  $log.log('HomeController');
     angular.extend($scope, moduleBase);
 		// Set lang here is for all contoller
@@ -30,6 +30,8 @@ define([], function () {
     $scope.doSth = function() {
       $log.log('ssssssss');
     }
+    
+    $scope.dbtype = $appConfig.dbtype;
     
 	});  
   app.run(function($rootScope, moduleBase, dbAction, installDb, $appConfig, $log, $state){
