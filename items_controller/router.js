@@ -19,7 +19,6 @@ define([], function () {
 
 			$logProvider.debugEnabled(true);
 			//var me = this;
-			//console.log('$log', $stateProvider);
 			$urlRouterProvider.otherwise('/home');
 			$stateProvider.state('app', {
 				url : '/',

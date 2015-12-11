@@ -1,7 +1,7 @@
 define([], function () {
 	var app = angular.module('demo', ['ngRoute', 'ngAria', 'ui.router', 'db', 'moduleBase', 'ngAnimate', 'oc.lazyLoad', 'ngTouch']);
-	app.controller('HomeController', function ($scope, moduleBase, $state) {
-	console.log('HomeController');
+	app.controller('HomeController', function ($scope, moduleBase, $state, $log) {
+	  $log.log('HomeController');
     angular.extend($scope, moduleBase);
 		// Set lang here is for all contoller
 		// inject moduleBase for this only
@@ -24,20 +24,26 @@ define([], function () {
         $state.go(state);
     }
     $scope.haha = function(){
-      console.log('haha is here');
+      $log.log('haha is here');
     }
     
     $scope.doSth = function() {
-      console.log('ssssssss');
+      $log.log('ssssssss');
     }
     
 	});  
   app.run(function($rootScope, moduleBase, dbAction, installDb, $appConfig, $log, $state){
     moduleBase.changeLanguage('en');
-    if($appConfig.dbtype=='indexeddb') {
-      installDb.install();
-    } else {
-      //dbAction.install(); 
+    switch($appConfig.dbtype) {
+      case 'indexeddb':
+        installDb.install();
+      break;
+      case 'nodejs_mongodb':
+        dbAction.install();
+      break;
+      case 'websql':
+        
+      break;
     }
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
       $log.log(toState, toParams, fromState, fromParams)

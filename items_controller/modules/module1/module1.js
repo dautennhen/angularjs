@@ -84,17 +84,14 @@ define([], function () {
 								onupgradeneeded(evt)
 								//var objectStore = evt.currentTarget.result.createObjectStore(
 								//"ln", { keyPath: "id", autoIncrement: true });
-
 								//objectStore.createIndex("name", "name", { unique: false });
 								//objectStore.createIndex("email", "email", { unique: true });
-
 						};
 					},
 					getStore : function (tablename) {
 						var transaction = this.db.transaction(tablename, 'readwrite');
 						return transaction.objectStore(tablename)
 					},
-
 					//{table:tablename, values:{}}
 					getAll : function (param, callback) {
 						request = this.getStore(param.table).openCursor();

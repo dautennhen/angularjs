@@ -59,10 +59,10 @@ define([], function () {
 						if (items.length != 0) {
 							$scope.total = $scope.allItems.length;
 						}
+            return items;
 					},
 					getDisplayItems : function (number, $scope) {
 						var items = [];
-						var oneitem = {};
 						for (var i = number[0]; i < number[1]; i++) {
 							if (typeof $scope.allItems[i] == 'undefined')
 								break;

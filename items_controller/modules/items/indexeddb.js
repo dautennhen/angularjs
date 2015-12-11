@@ -4,7 +4,7 @@ var initializeItems = function ($window, $scope, moduleItems) {
 }
 angular.module('moduleItems', ['ngRoute', 'ui.router', 'db', 'moduleBase', 'moduleTable', 'bw.paging', 'app.config']);
 angular.module('moduleItems').controller('ItemsController', function ($log, $scope, dbAction, indexedDb, moduleItems, $stateParams, $timeout, $routeParams, $window, moduleTable, $appConfig, moduleBase) {
-	//console.log($stateParams, $routeParams);
+	//$log.log($stateParams, $routeParams);
 	// get default paging
 	$scope.page = $appConfig.paging_page;
 	$scope.pageSize = $appConfig.paging_pageSize;
@@ -27,7 +27,7 @@ angular.module('moduleItems').controller('ItemsController', function ($log, $sco
 			id : 1
 		}, function (result) {
 			$scope.items = result;
-			console.log(result)
+			$log.log(result)
 		});
 	}
 	$scope.example = {
@@ -67,7 +67,7 @@ angular.module('moduleItems').controller('ItemsController', function ($log, $sco
 			values : data
 		};
 		indexedDb.insert(param, function (result) {
-			//console.log(result)
+			//$log.log(result)
 			$timeout(function () {
 				$scope.$apply(function () {
 					data.id = result.target.result;
@@ -134,7 +134,7 @@ angular.module('moduleItems').controller('ItemsController', function ($log, $sco
 			url : "http://localhost:3000"
 		};
 		dbAction.dummyData(param, function (response) {
-			console.log(response);
+			$log.log(response);
 		});
 	}
 	$scope.addFields = function ($event, field) {
@@ -163,7 +163,7 @@ angular.module('moduleItems').controller('ItemController', function ($scope, $st
 			return item.id == id
 		});
 	$timeout(function () {
-		//console.log('ItemController', id, $scope.item);
+		//$log.log('ItemController', id, $scope.item);
 		$('[data-id="item' + id + '"]').show();
 		$("#myModal").modal("show")
 	}, 20);
@@ -177,7 +177,8 @@ angular.module('moduleItems').controller('ItemController', function ($scope, $st
 });
 angular.module('moduleItems').provider("moduleItems", function () {
 	var provider = {};
-	provider.$get = ['$window', 'dbAction', 'indexedDb', '$state', '$templateCache', '$timeout', '$rootScope', '$stateParams', 'moduleBase', '$appConfig', function ($window, dbAction, indexedDb, $state, $templateCache, $timeout, $rootScope, $stateParams, moduleBase, $appConfig) {
+	provider.$get = ['$window', 'dbAction', 'indexedDb', '$state', '$templateCache', '$timeout', '$rootScope', '$stateParams', 'moduleBase', '$appConfig', 
+      function ($window, dbAction, indexedDb, $state, $templateCache, $timeout, $rootScope, $stateParams, moduleBase, $appConfig) {
 			var services = {
 				init : function ($scope) {
 					var getAll = function ($scope) {
@@ -191,8 +192,8 @@ angular.module('moduleItems').provider("moduleItems", function () {
 							$scope.$apply(function () {
 								$scope.allItems = results;
 								moduleBase.displayCurrentPage($scope);
-                $('[data-toggle="tooltip"]').tooltip();
 							})
+              $('[data-toggle="tooltip"]').tooltip();
 						}, 500);
 					}
 					($scope)
